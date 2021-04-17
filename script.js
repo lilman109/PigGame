@@ -17,10 +17,12 @@ let diceNumber;
 let player1Active = true;
 let currentScorePlayer1 = 0;
 let currentScorePlayer2 = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
 currentScorePlayer1El.textContent = currentScorePlayer1;
 currentScorePlayer2El.textContent = currentScorePlayer2;
-scorePlayer1El.textContent = currentScorePlayer1;
-scorePlayer2El.textContent = currentScorePlayer2;
+scorePlayer1El.textContent = scorePlayer1;
+scorePlayer2El.textContent = scorePlayer2;
 diceEl.classList.add('hidden');
 
 const rollDice = () => {
@@ -51,15 +53,13 @@ const addCurrentScore = () => {
 	}
 };
 
-const resetScore = () => {
+const resetCurrentScore = () => {
 	if (player1Active) {
 		currentScorePlayer1 = 0;
 		currentScorePlayer1El.textContent = currentScorePlayer1;
-		scorePlayer1El.textContent = currentScorePlayer1;
 	} else {
 		currentScorePlayer2 = 0;
 		currentScorePlayer2El.textContent = currentScorePlayer2;
-		scorePlayer2El.textContent = currentScorePlayer2;
 	}
 };
 
@@ -74,7 +74,7 @@ const onButtonRollClicked = () => {
 	if (diceNumber !== 1) {
 		addCurrentScore();
 	} else {
-		resetScore();
+		resetCurrentScore();
 		switchActivePlayer();
 	}
 };
@@ -82,27 +82,33 @@ const onButtonRollClicked = () => {
 const onHoldButtonClicked = () => {
 	addToScore();
 	switchActivePlayer();
+	diceEl.classList.add('hidden');
 };
 
 const addToScore = () => {
 	if (player1Active) {
-		scorePlayer1El.textContent = currentScorePlayer1;
+		scorePlayer1 += currentScorePlayer1;
+		scorePlayer1El.textContent = scorePlayer1;
 		currentScorePlayer1 = 0;
 		currentScorePlayer1El.textContent = currentScorePlayer1;
 	} else {
-		scorePlayer2El.textContent = currentScorePlayer2;
+		scorePlayer2 += currentScorePlayer2;
+		scorePlayer2El.textContent = scorePlayer2;
 		currentScorePlayer2 = 0;
 		currentScorePlayer2El.textContent = currentScorePlayer2;
 	}
 };
 
 const resetGame = () => {
+	player1Active = true;
 	currentScorePlayer1 = 0;
 	currentScorePlayer2 = 0;
+	scorePlayer1 = 0;
+	scorePlayer2 = 0;
 	currentScorePlayer1El.textContent = currentScorePlayer1;
 	currentScorePlayer2El.textContent = currentScorePlayer2;
-	scorePlayer1El.textContent = currentScorePlayer1;
-	scorePlayer2El.textContent = currentScorePlayer2;
+	scorePlayer1El.textContent = scorePlayer1;
+	scorePlayer2El.textContent = scorePlayer2;
 	diceEl.classList.add('hidden');
 	swithToPlayer1();
 };
