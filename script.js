@@ -19,8 +19,8 @@ let currentScorePlayer1 = 0;
 let currentScorePlayer2 = 0;
 currentScorePlayer1El.textContent = currentScorePlayer1;
 currentScorePlayer2El.textContent = currentScorePlayer2;
-scorePlayer1El.textContent = 0;
-scorePlayer2El.textContent = 0;
+scorePlayer1El.textContent = currentScorePlayer1;
+scorePlayer2El.textContent = currentScorePlayer2;
 diceEl.classList.add('hidden');
 
 const rollDice = () => {
@@ -55,12 +55,20 @@ const addScore = () => {
 
 const resetScore = () => {
 	if (player1Active) {
-		currentScorePlayer1El.textContent = 0;
-		scorePlayer1El.textContent = 0;
+		currentScorePlayer1El = 0;
+		currentScorePlayer1El.textContent = currentScorePlayer1;
+		scorePlayer1El.textContent = currentScorePlayer1;
 	} else {
-		currentScorePlayer2El.textContent = 0;
-		scorePlayer2El.textContent = 0;
+		currentScorePlayer2El = 0;
+		currentScorePlayer2El.textContent = currentScorePlayer2;
+		scorePlayer2El.textContent = currentScorePlayer2;
 	}
+};
+
+const swithToPlayer1 = () => {
+	player2.classList.remove('player--active');
+	player1.classList.add('player--active');
+	player1Active = true;
 };
 
 const onButtonRollClicked = () => {
@@ -73,5 +81,16 @@ const onButtonRollClicked = () => {
 	}
 };
 
+const resetGame = () => {
+	currentScorePlayer1 = 0;
+	currentScorePlayer2 = 0;
+	currentScorePlayer1El.textContent = currentScorePlayer1;
+	currentScorePlayer2El.textContent = currentScorePlayer2;
+	scorePlayer1El.textContent = currentScorePlayer1;
+	scorePlayer2El.textContent = currentScorePlayer2;
+	swithToPlayer1();
+};
+
 buttonRollEl.addEventListener('click', onButtonRollClicked);
 buttonHoldEl.addEventListener('click', switchActivePlayer);
+buttonNewEl.addEventListener('click', resetGame);
