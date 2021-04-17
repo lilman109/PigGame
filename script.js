@@ -41,25 +41,23 @@ const switchActivePlayer = () => {
 	}
 };
 
-const addScore = () => {
+const addCurrentScore = () => {
 	if (player1Active) {
 		currentScorePlayer1 += diceNumber;
 		currentScorePlayer1El.textContent = currentScorePlayer1;
-		scorePlayer1El.textContent = diceNumber;
 	} else {
 		currentScorePlayer2 += diceNumber;
 		currentScorePlayer2El.textContent = currentScorePlayer2;
-		scorePlayer2El.textContent = diceNumber;
 	}
 };
 
 const resetScore = () => {
 	if (player1Active) {
-		currentScorePlayer1El = 0;
+		currentScorePlayer1 = 0;
 		currentScorePlayer1El.textContent = currentScorePlayer1;
 		scorePlayer1El.textContent = currentScorePlayer1;
 	} else {
-		currentScorePlayer2El = 0;
+		currentScorePlayer2 = 0;
 		currentScorePlayer2El.textContent = currentScorePlayer2;
 		scorePlayer2El.textContent = currentScorePlayer2;
 	}
@@ -74,10 +72,27 @@ const swithToPlayer1 = () => {
 const onButtonRollClicked = () => {
 	rollDice();
 	if (diceNumber !== 1) {
-		addScore();
+		addCurrentScore();
 	} else {
 		resetScore();
 		switchActivePlayer();
+	}
+};
+
+const onHoldButtonClicked = () => {
+	addToScore();
+	switchActivePlayer();
+};
+
+const addToScore = () => {
+	if (player1Active) {
+		scorePlayer1El.textContent = currentScorePlayer1;
+		currentScorePlayer1 = 0;
+		currentScorePlayer1El.textContent = currentScorePlayer1;
+	} else {
+		scorePlayer2El.textContent = currentScorePlayer2;
+		currentScorePlayer2 = 0;
+		currentScorePlayer2El.textContent = currentScorePlayer2;
 	}
 };
 
@@ -88,9 +103,10 @@ const resetGame = () => {
 	currentScorePlayer2El.textContent = currentScorePlayer2;
 	scorePlayer1El.textContent = currentScorePlayer1;
 	scorePlayer2El.textContent = currentScorePlayer2;
+	diceEl.classList.add('hidden');
 	swithToPlayer1();
 };
 
 buttonRollEl.addEventListener('click', onButtonRollClicked);
-buttonHoldEl.addEventListener('click', switchActivePlayer);
+buttonHoldEl.addEventListener('click', onHoldButtonClicked);
 buttonNewEl.addEventListener('click', resetGame);
