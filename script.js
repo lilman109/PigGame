@@ -10,7 +10,7 @@ const currentScorePlayer2El = document.getElementById('current--1');
 const diceEl = document.querySelector('.dice');
 const buttonNewEl = document.querySelector('.btn--new');
 const buttonRollEl = document.querySelector('.btn--roll');
-const buttonEl = document.querySelector('.btn--hold');
+const buttonHoldEl = document.querySelector('.btn--hold');
 
 // Initialize
 let diceNumber;
@@ -35,8 +35,8 @@ const switchActivePlayer = () => {
 		player2.classList.add('player--active');
 		player1Active = false;
 	} else {
-		player2.classList.add('player--active');
-		player1.classList.remove('player--active');
+		player2.classList.remove('player--active');
+		player1.classList.add('player--active');
 		player1Active = true;
 	}
 };
@@ -53,13 +53,25 @@ const addScore = () => {
 	}
 };
 
+const resetScore = () => {
+	if (player1Active) {
+		currentScorePlayer1El.textContent = 0;
+		scorePlayer1El.textContent = 0;
+	} else {
+		currentScorePlayer2El.textContent = 0;
+		scorePlayer2El.textContent = 0;
+	}
+};
+
 const onButtonRollClicked = () => {
 	rollDice();
 	if (diceNumber !== 1) {
 		addScore();
 	} else {
+		resetScore();
 		switchActivePlayer();
 	}
 };
 
 buttonRollEl.addEventListener('click', onButtonRollClicked);
+buttonHoldEl.addEventListener('click', switchActivePlayer);
