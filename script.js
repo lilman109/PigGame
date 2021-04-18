@@ -138,6 +138,8 @@ const resetGame = () => {
 	diceEl.classList.add('hidden');
 	buttonHoldEl.disabled = false;
 	buttonRollEl.disabled = false;
+	player1.classList.remove('player--winner');
+	player2.classList.remove('player--winner');
 	swithToPlayer1();
 };
 
