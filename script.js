@@ -19,6 +19,7 @@ let currentScorePlayer1 = 0;
 let currentScorePlayer2 = 0;
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;
+let winnerDecided = false;
 currentScorePlayer1El.textContent = currentScorePlayer1;
 currentScorePlayer2El.textContent = currentScorePlayer2;
 scorePlayer1El.textContent = scorePlayer1;
@@ -79,9 +80,33 @@ const onButtonRollClicked = () => {
 	}
 };
 
+const checkForWinner = () => {
+	if (player1Active) {
+		if (scorePlayer1 >= 100) {
+			console.log('winner');
+			player1.classList.add('player--winner');
+			winnerDecided = true;
+		}
+	} else {
+		if (scorePlayer2 >= 100) {
+			console.log('winner');
+			player2.classList.add('player--winner');
+			winnerDecided = true;
+		}
+	}
+
+	if (winnerDecided) {
+		buttonHoldEl.disabled = true;
+		buttonRollEl.disabled = true;
+	}
+};
+
 const onHoldButtonClicked = () => {
 	addToScore();
-	switchActivePlayer();
+	checkForWinner();
+	if (!winnerDecided) {
+		switchActivePlayer();
+	}
 	diceEl.classList.add('hidden');
 };
 
@@ -109,7 +134,10 @@ const resetGame = () => {
 	currentScorePlayer2El.textContent = currentScorePlayer2;
 	scorePlayer1El.textContent = scorePlayer1;
 	scorePlayer2El.textContent = scorePlayer2;
+	winnerDecided = false;
 	diceEl.classList.add('hidden');
+	buttonHoldEl.disabled = false;
+	buttonRollEl.disabled = false;
 	swithToPlayer1();
 };
 
