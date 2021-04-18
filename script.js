@@ -12,19 +12,31 @@ const buttonNewEl = document.querySelector('.btn--new');
 const buttonRollEl = document.querySelector('.btn--roll');
 const buttonHoldEl = document.querySelector('.btn--hold');
 
+let diceNumber,
+	player1Active,
+	currentScorePlayer1,
+	currentScorePlayer2,
+	scorePlayer1,
+	scorePlayer2,
+	winnerDecided;
+
 // Initialize
-let diceNumber;
-let player1Active = true;
-let currentScorePlayer1 = 0;
-let currentScorePlayer2 = 0;
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
-let winnerDecided = false;
-currentScorePlayer1El.textContent = currentScorePlayer1;
-currentScorePlayer2El.textContent = currentScorePlayer2;
-scorePlayer1El.textContent = scorePlayer1;
-scorePlayer2El.textContent = scorePlayer2;
-diceEl.classList.add('hidden');
+const init = () => {
+	diceNumber;
+	player1Active = true;
+	currentScorePlayer1 = 0;
+	currentScorePlayer2 = 0;
+	scorePlayer1 = 0;
+	scorePlayer2 = 0;
+	winnerDecided = false;
+	currentScorePlayer1El.textContent = currentScorePlayer1;
+	currentScorePlayer2El.textContent = currentScorePlayer2;
+	scorePlayer1El.textContent = scorePlayer1;
+	scorePlayer2El.textContent = scorePlayer2;
+	diceEl.classList.add('hidden');
+};
+
+init();
 
 const rollDice = () => {
 	diceNumber = Math.trunc(Math.random() * 6) + 1;
@@ -125,17 +137,7 @@ const addToScore = () => {
 };
 
 const resetGame = () => {
-	player1Active = true;
-	currentScorePlayer1 = 0;
-	currentScorePlayer2 = 0;
-	scorePlayer1 = 0;
-	scorePlayer2 = 0;
-	currentScorePlayer1El.textContent = currentScorePlayer1;
-	currentScorePlayer2El.textContent = currentScorePlayer2;
-	scorePlayer1El.textContent = scorePlayer1;
-	scorePlayer2El.textContent = scorePlayer2;
-	winnerDecided = false;
-	diceEl.classList.add('hidden');
+	init();
 	buttonHoldEl.disabled = false;
 	buttonRollEl.disabled = false;
 	player1.classList.remove('player--winner');
